@@ -18,6 +18,7 @@ if (app.get('env') === 'development') {
 
 app.use(bodyParser.json());
 
+require('./routes/home.route')(app);
 require('./routes/athlete.route')(app);
 require('./routes/user.route')(app);
 require('./routes/club.route')(app);
