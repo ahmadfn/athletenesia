@@ -36,7 +36,7 @@ const athleteSchema = new mongoose.Schema({
 		type: ObjectId,
 		ref: 'Club'
 	}],
-	appliedScholarsip: [{
+	appliedScholarship: [{
 		type: ObjectId,
 		ref: 'Scholarship'
 	}],

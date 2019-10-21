@@ -1,5 +1,6 @@
 const Scholarship = require('../models/scholarship.model');
 const Club = require('../models/club.model');
+const Athlete = require('../models/athlete.model');
 const responseHandling = require('../middlewares/responseHandling');
 
 
@@ -84,21 +85,25 @@ exports.scholarshipApply = (req, res) => {
 	});
 
 	function updateScholarship(scholarshipData) {
-		scholarshipData.update({
-			appliedAthlete: [...scholarshipData, req.userId]
-		}, updateAthlete);
+		scholarshipData.updateOne({
+			appliedAthlete: [...scholarshipData.appliedAthlete, req.userId]
+		}, (err, data) => {
+			if (err) responseHandling(res, false, "something went wrong, no data is retrieved", err);
+			else {
+				updateAthlete(scholarshipData);
+			}
+		});
 	}
 
-	function updateAthlete(err, updatedScholarship) {
-		if (err) responseHandling(res, false, "something went wrong, no data is retrieved", err);
-		else {
-			Athlete.findByIdAndUpdate(req.userId, {
-				$push: {appliedScholarship: updatedScholarship._id, appliedClub: updatedScholarship.clubId}
-			}, {new: true}, handleFunc);
-		}
+	function updateAthlete(updatedScholarship) {
+		console.log(updatedScholarship._id)
+		Athlete.findOneAndUpdate({userId: req.userId}, {
+			$push: {appliedScholarship: updatedScholarship._id, appliedClub: updatedScholarship.clubId}
+		}, {new: true}, handleFunc);
 	}
 
 	function handleFunc(err, updatedAthlete) {
+		console.log(updatedAthlete)
 		if (err) responseHandling(res, false, "something went wrong, no data is retrieved", err);
 		else {
 			if (updatedAthlete !== null) responseHandling(res, true, "data is updated", updatedAthlete);
