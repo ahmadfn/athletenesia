@@ -96,14 +96,12 @@ exports.scholarshipApply = (req, res) => {
 	}
 
 	function updateAthlete(updatedScholarship) {
-		console.log(updatedScholarship._id)
 		Athlete.findOneAndUpdate({userId: req.userId}, {
 			$push: {appliedScholarship: updatedScholarship._id, appliedClub: updatedScholarship.clubId}
 		}, {new: true}, handleFunc);
 	}
 
 	function handleFunc(err, updatedAthlete) {
-		console.log(updatedAthlete)
 		if (err) responseHandling(res, false, "something went wrong, no data is retrieved", err);
 		else {
 			if (updatedAthlete !== null) responseHandling(res, true, "data is updated", updatedAthlete);

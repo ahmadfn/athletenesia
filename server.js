@@ -2,9 +2,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 8000;
+
+app.use(cors());
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
