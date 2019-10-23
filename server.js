@@ -16,7 +16,7 @@ mongoose.set('useNewUrlParser', true);
 if (app.get('env') === 'development') {
 	mongoose.connect(`mongodb://localhost/${process.env.LOCAL_DB_NAME}`);
 } else {
-	mongoose.connect(`mongodb+srv://${process.env.ATLAS_DB_USERNAME}:${process.env.ATLAS_DB_PASSWORD}@cluster0-e2xpz.mongodb.net/${ATLAS_DB_NAME});
+	mongoose.connect(`mongodb+srv://${process.env.ATLAS_DB_USERNAME}:${process.env.ATLAS_DB_PASSWORD}@cluster0-e2xpz.mongodb.net/${ATLAS_DB_NAME}`);
 }
 
 app.use(bodyParser.json());
