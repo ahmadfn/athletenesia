@@ -7,12 +7,7 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 8000;
 
-const corsOptions = {
-	origin: 'http://localhost:3000',
-	optionSuccessStatus: 200
-}
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
