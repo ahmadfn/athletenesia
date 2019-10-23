@@ -12,7 +12,7 @@ const corsOptions = {
 	optionSuccessStatus: 200
 }
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
