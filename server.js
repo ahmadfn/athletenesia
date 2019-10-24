@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-const 
+const corsOptions = {
+	origin: 'http://127.0.0.1:3000'
+}
 
 app.use(cors());
 
