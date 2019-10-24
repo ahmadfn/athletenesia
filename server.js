@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8000;
+app.use(cors());
 
-app.options('*', cors());
+const PORT = process.env.PORT || 8000;
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
