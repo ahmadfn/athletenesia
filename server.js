@@ -6,11 +6,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const corsOptions = {
-	origin: 'http://127.0.0.1:3000',
-	allowedHeaders: ["authorization", "Content-Type"],
-  exposedHeaders: ["authorization"],
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false
+	origin: 'http://localhost:3000'
 }
 
 app.use(cors());
@@ -24,7 +20,7 @@ mongoose.set('useNewUrlParser', true);
 if (app.get('env') === 'development') {
 	mongoose.connect(`mongodb://localhost/${process.env.LOCAL_DB_NAME}`);
 } else {
-	mongoose.connect(`mongodb+srv://${process.env.ATLAS_DB_USERNAME}:${process.env.ATLAS_DB_PASSWORD}@cluster0-e2xpz.mongodb.net/${ATLAS_DB_NAME}`);
+	mongoose.connect(`mongodb+srv://${process.env.ATLAS_DB_USERNAME}:${process.env.ATLAS_DB_PASSWORD}@cluster0-e2xpz.mongodb.net/${process.env.ATLAS_DB_NAME}`);
 }
 
 app.use(bodyParser.json());
