@@ -6,7 +6,11 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const corsOptions = {
-	origin: 'http://127.0.0.1:3000'
+	origin: 'http://127.0.0.1:3000',
+	allowedHeaders: ["authorization", "Content-Type"],
+  exposedHeaders: ["authorization"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false
 }
 
 app.use(cors());
