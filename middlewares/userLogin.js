@@ -14,11 +14,12 @@ const userLogin = (req, res, next) =>{
 	function comparePassword(userData) {
 		bcrypt.compare(req.body.password, userData.password, (err, isRegistered) => {
 			if (err) resp(res, false, "something went wrong, no data is retrieved", err);
-			else createToken(isRegistered, userData);
+			else if (isRegistered) createToken(userData);
+			else resp(res, false, "your email or password does not match");
 		});
 	}
 
-	function createToken(isRegistered, userData) {
+	function createToken(userData) {
 		jwt.sign({id: userData._id}, process.env.SECRET_KEY, (err, token) => {
 			if (err) resp(res, false, "something went wrong, no data is retrieved", err);
 			else {
