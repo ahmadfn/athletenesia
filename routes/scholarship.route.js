@@ -10,5 +10,5 @@ module.exports = app => {
 	app.get('/scholarships/:id', scholarship.scholarshipDetail);
 	app.put('/scholarships/:id', authentication, clubAuth, scholarshipAuth, authorization.scholarship, scholarship.scholarshipUpdate);
 	app.delete('/scholarships/:id',authentication, clubAuth, scholarshipAuth, authorization.scholarship, scholarship.scholarshipDelete);
-	app.put('/scholarships/:id/apply', authentication, scholarship.scholarshipApply);
+	app.put('/scholarships/:id/apply', authentication, clubAuth, scholarship.scholarshipApply);
 }
