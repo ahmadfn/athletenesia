@@ -8,7 +8,7 @@ module.exports = app => {
 	//app.post('/add-club', club.clubCreate);
 	app.get('/clubs', club.clubShowAll);
 	app.get('/clubs/:id', club.clubDetail);
-	app.put('/clubs/:id', authentication, authorization.club, club.clubUpdate);
+	app.patch('/clubs/:id', authentication, authorization.club, club.clubUpdate);
 	app.delete('/clubs/:id', authentication, authorization.club, club.clubDelete);
 	app.post('/clubs/login', userLogin, clubAuth, club.login);
 }

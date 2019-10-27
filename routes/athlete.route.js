@@ -9,6 +9,6 @@ module.exports = app => {
     app.get('/athletes', athlete.athleteShowAll);
     app.get('/athlete/:id', athlete.athleteShow);
     app.delete('/athlete/:id', authentication, authorization.athlete, athlete.athleteDelete);
-    app.put('/athlete/:id', authentication, authorization.athlete, athlete.athleteEdit);
+    app.patch('/athlete/:id', authentication, authorization.athlete, athlete.athleteEdit);
     app.post('/athlete/login', userLogin, athleteAuth, athlete.login);
 }
