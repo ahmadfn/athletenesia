@@ -48,7 +48,7 @@ exports.clubShowAll = (req, res) => {
 		.populate(
 			[
 				{path: 'userId', select: ['firstName', 'lastName', 'email']},
-				{path: 'sportId', select: 'sport'}
+				{path: 'sport', select: 'sportName'}
 			]
 		)
 		.then(clubs => {
@@ -64,8 +64,11 @@ exports.clubDetail = (req, res) => {
 		.populate(
 			[
 				{path: 'userId', select: ['firstName', 'lastName', 'email']},
+				{path: 'sport', select: 'sportName'},
 				{path: 'scholarshipOffered', select: ['scholarshipName', 'quota', 'startDate', 'endDate']},
-				{path: 'appliedAthlete', select: ['']}
+				{path: 'appliedAthlete', select: ['status', 'location', 'profilePicture']}
+				{path: 'appliedAthlete.userId', select: ['firstName', 'lastName']},
+				{path: 'appliedAthlete.sport', select: 'sportName'}
 			]
 		)
 		.then(detail => {

@@ -51,7 +51,7 @@ exports.athleteShowAll = (req, res) => {
   const AthletePromise = Athlete.find().populate(
     [
       {path: 'userId', select: ['firstName', 'lastName']},
-      {path: 'sportId', select: 'sport'}
+      {path: 'sport', select: 'sportName'}
     ]
   ).exec();
 
@@ -67,19 +67,15 @@ exports.athleteShowAll = (req, res) => {
 
 exports.athleteShow = (req, res) => {
   Athlete.findById(req.params.id)
-    .populate([{
-      path: 'userId',
-      select: ['firstName', 'lastName', 'email']
-    }, {
-      path: 'appliedClub',
-      select: ['_id', 'clubName', 'clubLogo', 'clubAddress']
-    }, {
-      path: 'acceptedClub',
-      select: ['_id', 'clubName', 'clubLogo', 'clubAddress']
-    }, {
-      path: 'appliedScholarship',
-      select: ['_id', 'scholarshipName']
-    }])
+    .populate(
+      [
+        { path: 'userId', select: ['firstName', 'lastName', 'email'] }, 
+        { path: 'sport', select: 'sportName' }, 
+        { path: 'appliedClub', select: ['_id', 'clubName', 'clubLogo', 'clubAddress' ]}, 
+        { path: 'acceptedClub', select: ['_id', 'clubName', 'clubLogo', 'clubAddress']}, 
+        { path: 'appliedScholarship', select: ['_id', 'scholarshipName']}
+      ]
+    )
     .then(detailAthlete => {
       if (detailAthlete) {
         resp(res, true, 'detail athlete is shown', detailAthlete)

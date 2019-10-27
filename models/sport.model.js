@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const sportSchema = new mongoose.Schema({
-	sport: {
+	sportName: {
 		type: String,
 		required: [true, "sport is required"]
 	}
