@@ -45,7 +45,12 @@ exports.clubCreate = (req, res) => {
 
 exports.clubShowAll = (req, res) => {
 	Club.find()
-		.populate({path: 'userId', select: ['firstName', 'lastName']})
+		.populate(
+			[
+				{path: 'userId', select: ['firstName', 'lastName', 'email']},
+				{path: 'sportId', select: 'sport'}
+			]
+		)
 		.then(clubs => {
 			if (clubs.length > 0) responseHandling(res, true, "clubs data are retrieved", clubs);
 			else if (clubs.length === 0) responseHandling(res, true, "there is no club available, yet", clubs);
@@ -56,7 +61,13 @@ exports.clubShowAll = (req, res) => {
 
 exports.clubDetail = (req, res) => {
 	Club.findById(req.params.id)
-		.populate({path: 'userId', select: ['firstName', 'lastName']})
+		.populate(
+			[
+				{path: 'userId', select: ['firstName', 'lastName', 'email']},
+				{path: 'scholarshipOffered', select: ['scholarshipName', 'quota', 'startDate', 'endDate']},
+				{path: 'appliedAthlete', select: ['']}
+			]
+		)
 		.then(detail => {
 			if (detail) responseHandling(res, true, "detail information is retrieved", detail);
 			else responseHandling(res, false, "something went wrong, no data is retrieved");

@@ -48,11 +48,16 @@ exports.athleteCreate = (req, res) => {
 }
 
 exports.athleteShowAll = (req, res) => {
-  const AthletePromise = Athlete.find().populate({path: 'userId', select: ['firstName', 'lastName']}).exec();
+  const AthletePromise = Athlete.find().populate(
+    [
+      {path: 'userId', select: ['firstName', 'lastName']},
+      {path: 'sportId', select: 'sport'}
+    ]
+  ).exec();
 
   AthletePromise
-    .then(AllAthlete => {
-      if (AllAthlete) resp(res, true, 'all athletes data are retrieved', AllAthlete);
+    .then(allAthlete => {
+      if (allAthlete) resp(res, true, 'all athletes data are retrieved', allAthlete);
       else resp(res, false, 'there is no athlete, yet');
     })
     .catch(err => {
@@ -62,13 +67,22 @@ exports.athleteShowAll = (req, res) => {
 
 exports.athleteShow = (req, res) => {
   Athlete.findById(req.params.id)
-    .populate({
+    .populate([{
       path: 'userId',
       select: ['firstName', 'lastName', 'email']
-    })
-    .then(DetailAthlete => {
-      if (DetailAthlete) {
-        resp(res, true, 'detail athlete is shown', DetailAthlete)
+    }, {
+      path: 'appliedClub',
+      select: ['_id', 'clubName', 'clubLogo', 'clubAddress']
+    }, {
+      path: 'acceptedClub',
+      select: ['_id', 'clubName', 'clubLogo', 'clubAddress']
+    }, {
+      path: 'appliedScholarship',
+      select: ['_id', 'scholarshipName']
+    }])
+    .then(detailAthlete => {
+      if (detailAthlete) {
+        resp(res, true, 'detail athlete is shown', detailAthlete)
       } else {
         resp(res, false, 'detail athlete is not avaliable')
       }

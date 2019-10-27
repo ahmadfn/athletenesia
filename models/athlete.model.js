@@ -6,7 +6,7 @@ const athleteSchema = new mongoose.Schema({
 		type: ObjectId,
 		ref: 'User'
 	},
-	sportId: {
+	sport: {
 		type: ObjectId,
 		ref: 'Sport'
 	},
